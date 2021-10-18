@@ -57,6 +57,16 @@ class AnimeInfoExtractor():
 
     def getName(self):
         return self.name
+    def __testIfEp(self, filename):
+        # Test if file is an episode or Special/Supplementary File, and force a failure condiion if this is the case, to avoid false positives
+        z = re.search(r"((?P<show>.*?)[ _\.\-]+)((?P<spec>PV|SP|OP|ED)(([ _\.]+(?P<epa>\d{1,2}[a-u|w-z]?))|(?P<epb>\d{1,2}[a-u|w-z]?)|([ _\.]+)))+[ _\.]?(?P<version>V\d{1,2})?([ _\.\-]+(?P<eptitle>.^\[*))?", filename, flags=re.IGNORECASE)
+        if z is None:
+            z = re.search(r"((?P<show>.*?)[ _\.\-]+)(?P<spec>NCOP|OPENING|NCED|ENDING|TRAILER|PROMO|OTHER)[ _\.]?(?P<ep>\d{1,2}[a-u|w-z]?)?[ _\.]?(?P<version>V\d{1,2})?([ _\.\-]+(?P<eptitle>.^\[*))?", filename, flags=re.IGNORECASE)
+            if z is None:
+                return filename
+        filename = "File is a " + z.group('spec')
+        self.name = "File is a " + z.group('spec')
+        return filename
 
     def getEpisodeNumbers(self, force_numbers=False):
         ep_start = self.episodeStart
@@ -108,6 +118,7 @@ class AnimeInfoExtractor():
                     self.releaseSource.append(m.group(1))
                 # remove the match
                 filename = filename[:m.start(1)] + NO_SUBBER + filename[m.end(1):]
+        filename = filename + ' [' + NO_SUBBER + ']'
         return filename
 
     def __extractVideoProfile(self, filename):
@@ -175,7 +186,7 @@ class AnimeInfoExtractor():
         for opening, closing in BRACKET_PAIRS:
             m = re.search(r'{0}([^\. ].*?){1}'.format(opening, closing), filename)
             if m:
-                self.subberTag = m.group(1)
+                self.subberTag = re.sub(r'.*{}.*'.format(NO_SUBBER), '', m.group(1))
                 filename = filename[:m.start()] + filename[m.end():]
                 break
         # Add the remux string if this was a remux and its not found in the subber tag
@@ -310,6 +321,7 @@ class AnimeInfoExtractor():
 
     def _processFilename(self):
         filename = self.originalFilename
+        filename = self.__testIfEp(filename)
         filename = self.__extractExtension(filename)
         filename = self.__cleanUpSpaces(filename)
         filename = self.__extractSpecialTags(filename)
@@ -317,8 +329,8 @@ class AnimeInfoExtractor():
         filename = self.__extractResolution(filename)
         filename = self.__extractHash(filename)
         remux = self.__checkIfRemux(filename)
-        filename = self.__cleanUpBrackets(filename)
         filename = self.__extractSubber(filename, remux)
+        filename = self.__cleanUpBrackets(filename)
         filename = self.__extractVersion(filename)
         # Store the possible length of the title
         title_len = len(filename)

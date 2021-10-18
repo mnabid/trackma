@@ -263,7 +263,7 @@ class TrackerBase(object):
 
             # Do a regex to the filename to get
             # the show title and episode number
-            aie = AnimeInfoExtractor(filename)
+            aie = AnimeInfoExtractor(re.sub(os.path.sep, ' ', filename))
             (show_title, show_ep) = (aie.getName(), aie.getEpisode())
             if not show_title:
                 # Format not recognized
