@@ -79,7 +79,7 @@ class SettingsDialog(QDialog):
         self.tracker_type.currentIndexChanged.connect(self.tracker_type_change)
 
         self.tracker_interval = QSpinBox()
-        self.tracker_interval.setRange(5, 1000)
+        self.tracker_interval.setRange(1, 1000)
         self.tracker_interval.setMaximumWidth(60)
         self.tracker_process = QLineEdit()
         self.tracker_update_wait = QSpinBox()
