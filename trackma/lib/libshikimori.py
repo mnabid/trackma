@@ -258,7 +258,6 @@ class libshikimori(lib):
                 'total': item[self.mediatype][self.total_str],
                 'url': self.url + item[self.mediatype]['url'],
                 'image': self.url + item[self.mediatype]['image']['original'],
-                'image_thumb': self.url + item[self.mediatype]['image']['preview'],
             })
 
             showlist[showid] = show
@@ -309,7 +308,6 @@ class libshikimori(lib):
                 'my_status': self.media_info()['statuses_start'][0],
                 'total': item[self.total_str],
                 'image': self.url + item['image']['original'],
-                'image_thumb': self.url + item['image']['preview'],
             })
 
             showlist.append(show)

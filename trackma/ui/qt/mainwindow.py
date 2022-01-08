@@ -357,11 +357,11 @@ class MainWindow(QMainWindow):
             self.resize(740, 480)
 
         self.show_image = QLabel('Trackma-qt')
-        self.show_image.setFixedHeight(149)
-        self.show_image.setMinimumWidth(100)
+        self.show_image.setFixedHeight(260)
+        self.show_image.setFixedWidth(185)
         self.show_image.setAlignment(QtCore.Qt.AlignCenter)
         self.show_image.setStyleSheet(
-            "border: 1px solid #777;background-color:#999;text-align:center")
+            "background-color:#171717;text-align:center")
         show_progress_label = QLabel('Progress:')
         self.show_progress = QSpinBox()
         self.show_progress_bar = QProgressBar()
@@ -846,7 +846,7 @@ class MainWindow(QMainWindow):
         self._enable_show_widgets(True)
 
         # Download image or use cache
-        if show.get('image_thumb') or show.get('image'):
+        if show.get('image'):
             if self.image_worker is not None:
                 self.image_worker.cancel()
 
@@ -1036,7 +1036,7 @@ class MainWindow(QMainWindow):
             self.api_info['shortname'], self.api_info['mediatype'], show['id']))
 
         self.image_worker = ImageWorker(
-            show.get('image_thumb') or show['image'], filename, (100, 140))
+            show['image'], filename, (200, 280))
         self.image_worker.finished.connect(self.s_show_image)
         self.image_worker.start()
 

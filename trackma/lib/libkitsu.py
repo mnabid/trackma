@@ -382,8 +382,6 @@ class libkitsu(lib):
         show['total'] = info['total']
         show['image'] = info['image']
 
-        show['image_thumb'] = info['image_thumb']
-
         show['start_date'] = info['start_date']
         show['end_date'] = info['end_date']
         show['status'] = info['status']
@@ -560,7 +558,6 @@ class libkitsu(lib):
             'total':       total or 0,
             'type':        utils.Type.find(attr['subtype']),
             'image':       attr['posterImage'] and attr['posterImage']['small'],
-            'image_thumb': attr['posterImage'] and attr['posterImage']['tiny'],
             'start_date':  self._str2date(attr['startDate']),
             'end_date':    self._str2date(attr['endDate']),
             'type':        self.type_translate.get(attr['subtype'], utils.Type.UNKNOWN),

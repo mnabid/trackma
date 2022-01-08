@@ -63,7 +63,7 @@ class ShowInfoBox(Gtk.Box):
         # Load image
         if show.get('image'):
             utils.make_dir(utils.to_cache_path())
-            imagefile = utils.to_cache_path("%s_%s_f_%s.jpg" % (self._engine.api_info['shortname'],
+            imagefile = utils.to_cache_path("%s_%s_%s.jpg" % (self._engine.api_info['shortname'],
                                                                 self._engine.api_info['mediatype'],
                                                                 show['id']))
 

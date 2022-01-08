@@ -511,7 +511,7 @@ class MainView(Gtk.Box):
         self.spinbtn_score.set_value(show['my_score'])
 
         # Image
-        if show.get('image_thumb') or show.get('image'):
+        if show.get('image'):
             utils.make_dir(utils.to_cache_path())
             filename = utils.to_cache_path(
                 "%s_%s_%s.jpg" % (self._engine.api_info['shortname'],
@@ -521,8 +521,7 @@ class MainView(Gtk.Box):
             if os.path.isfile(filename):
                 self.image_box.set_image(filename)
             else:
-                self.image_box.set_image_remote(show.get('image_thumb') or show['image'],
-                                                filename)
+                self.image_box.set_image_remote(show['image'], filename)
         else:
             self.image_box.set_text('No Image')
 

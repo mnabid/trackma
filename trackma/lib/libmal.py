@@ -266,7 +266,6 @@ class libmal(lib):
                     'url': "https://myanimelist.net/%s/%d" % (self.mediatype, showid),
                     'aliases': self._get_aliases(item['node']),
                     'image': item['node'].get('main_picture', {}).get('large'),
-                    'image_thumb': item['node'].get('main_picture', {}).get('medium'),
                     'total': item['node'][self.total_str],
                     'status': self._translate_status(item['node']['status']),
                     'my_progress': item['list_status'][self.watched_str],

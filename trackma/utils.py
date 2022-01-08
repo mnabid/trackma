@@ -495,7 +495,6 @@ def show():
         'start_date':   None,
         'end_date':     None,
         'image':        '',
-        'image_thumb':  '',
         'queued':       False,
     }
 

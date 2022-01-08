@@ -333,7 +333,7 @@ class AddListModel(QtCore.QAbstractListModel):
             for row, item in enumerate(self.results):
                 if item.get('image'):
                     utils.make_dir(utils.to_cache_path())
-                    filename = utils.to_cache_path("%s_%s_f_%s.jpg" % (
+                    filename = utils.to_cache_path("%s_%s_%s.jpg" % (
                         self.api_info['shortname'], self.api_info['mediatype'], item['id']))
 
                     if self.pool.exists(filename):
