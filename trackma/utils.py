@@ -23,10 +23,10 @@ import shutil
 import copy
 import datetime
 import json
-import difflib
 import pickle
 import uuid
 from enum import Enum, auto
+from rapidfuzz import fuzz
 
 VERSION = '0.8.4'
 
@@ -378,24 +378,18 @@ def guess_show(show_title, tracker_list):
         if showid in showlist:
             return showlist[showid]
 
-    # Use difflib to see if the show title is similar to
-    # one we have in the list
-    highest_ratio = (None, 0)
-    matcher = difflib.SequenceMatcher()
-    matcher.set_seq1(show_title.lower())
-
-    # Compare to every show in our list to see which one
+    # Compare show_title to every show in our list to see which one
     # has the most similar name
+    highest_ratio = (None, 0)
     for item in showlist.values():
         # Make sure to search through all the aliases
         for title in item['titles']:
-            matcher.set_seq2(title.lower())
-            ratio = matcher.ratio()
+            ratio = fuzz.ratio(show_title, title, processor=lambda str: str.lower())
             if ratio > highest_ratio[1]:
                 highest_ratio = (item, ratio)
 
     playing_show = highest_ratio[0]
-    if highest_ratio[1] > 0.7:
+    if highest_ratio[1] > 70:
         return playing_show
 
 
