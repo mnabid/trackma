@@ -206,10 +206,10 @@ class TrackerBase(object):
 
             # Start our countdown
             (show, episode) = show_tuple
-            if state == utils.TRACKER_PLAYING:
+            if state == utils.Tracker.PLAYING:
                 self.msg.info(self.name, 'Will update %s - %d' %
                               (show['title'], episode))
-            elif state == utils.TRACKER_NOT_FOUND:
+            elif state == utils.Tracker.NOT_FOUND:
                 self.msg.info(self.name, 'Will add %s - %d' %
                               (show['title'], episode))
 
