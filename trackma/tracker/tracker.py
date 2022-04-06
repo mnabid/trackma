@@ -23,7 +23,7 @@ import ctypes
 
 from trackma import messenger
 from trackma import utils
-from trackma.extras import AnimeInfoExtractor
+from trackma.extras import AnitopyWrapper
 
 
 class TrackerBase(object):
@@ -259,7 +259,7 @@ class TrackerBase(object):
 
             # Do a regex to the filename to get
             # the show title and episode number
-            aie = AnimeInfoExtractor(filename)
+            aie = AnitopyWrapper(filename)
             (show_title, show_ep) = (aie.getName(), aie.getEpisode())
             if not show_title:
                 # Format not recognized

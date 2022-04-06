@@ -28,7 +28,7 @@ from decimal import Decimal
 from trackma import messenger
 from trackma import data
 from trackma import utils
-from trackma.extras import AnimeInfoExtractor
+from trackma.extras import AnitopyWrapper
 from trackma.extras import redirections
 
 
@@ -435,7 +435,7 @@ class Engine:
             # Guess show by filename
             self.msg.debug(self.name, "Guessing by filename.")
 
-            aie = AnimeInfoExtractor(filename)
+            aie = AnitopyWrapper(filename)
             (show_title, ep) = aie.getName(), aie.getEpisode()
             self.msg.debug(self.name, "Show guess: {}".format(show_title))
 
@@ -852,7 +852,7 @@ class Engine:
             # the information from the filename and do a fuzzy search
             # on the user's list. Cache the information.
             # If it fails, cache it as None.
-            aie = AnimeInfoExtractor(filename)
+            aie = AnitopyWrapper(filename)
             show_title = aie.getName()
             (show_ep_start, show_ep_end) = aie.getEpisodeNumbers(True)
             if show_title:
